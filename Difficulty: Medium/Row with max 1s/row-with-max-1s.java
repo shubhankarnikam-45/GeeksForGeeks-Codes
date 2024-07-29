@@ -42,17 +42,22 @@ class Solution {
         //size of col.
         int lenOfCol = arr[0].length;
         
-        for(int i=0; i<lenOfCol; i++)
+        int r =0;
+        int c = lenOfCol-1;
+        
+        int maxIdx = -1;
+        while( r < lenOfRow && c>=0)
         {
-            for(int j=0; j<lenOfRow; j++)
+            if(arr[r][c] == 1)
             {
-                if(arr[j][i] == 1)
-                {
-                    return j;
-                }
+                c--;
+                maxIdx = r;
+            }
+            else
+            {
+                r++;
             }
         }
-        
-        return -1;
+        return maxIdx;
     }
 }
