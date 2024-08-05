@@ -115,74 +115,72 @@ class GfG {
 
 
 //User function Template for Java
-
+    //creating class to store the node and level.
+    
+class Pair
+{
+    Node node;
+    int level;
+    
+    Pair(Node node, int level)
+    {
+        this.node  = node;
+        this.level = level;
+    }
+}
 
 class Solution
 {
-    //creating treelist.
-        TreeMap<Integer, ArrayList<Integer> > tlist = new TreeMap<>();
+
+    
+   
     //Function to return a list containing the bottom view of the given tree.
     public ArrayList <Integer> bottomView(Node root)
     {
+        //crearing array.
+        ArrayList<Integer> bottomViewArr= new ArrayList<>();
+        TreeMap<Integer, Integer> tmap  = new TreeMap<>();
         
-        int level = 0;
-        int index = 0;
-        preorder(root, level, index);
+        //we using the level order traversal.
         
-        //arraylist to final answer.
-        ArrayList<Integer> ans =new ArrayList<>();
-        //loop.
-        for(Map.Entry<Integer, ArrayList<Integer> >k : tlist.entrySet())
+        //stack
+        Queue<Pair> stack = new ArrayDeque<>();
+        Pair n = new Pair(root, 0);
+        stack.add(n);
+        
+        while(stack.size() > 0)
         {
-            int key = k.getKey();
-            ArrayList<Integer> value = k.getValue();
+            //storeting the size.
+            int size = stack.size();
             
-            ans.add(value.get(0));
-        }
-        
-        return ans;
-        
-    }
-    
-    public void preorder(Node root, int level, int index)
-    {
-        
-        
-        
-        if(root == null) return;
-        
-        
-        preorder(root.left, level + 1, index -1);
-        preorder(root.right, level + 1, index + 1);
-        
-        if(tlist.containsKey(index) == false)
-        {
-            //not present
-            ArrayList<Integer> arr = new ArrayList<>();
-            arr.add(root.data);
-            arr.add(level);
-            
-            tlist.put(index, arr);
-        }
-        else
-        {
-            //present
-            
-            ArrayList<Integer> arr = tlist.get(index);
-            
-            int element = arr.get(0);
-            int temp = arr.get(1);
-            
-            if(level >=temp)
+            for(int i=1; i<=size; i++)
             {
-                ArrayList<Integer> a = new ArrayList<>();
-                a.add(root.data);
-                a.add(level);
+                //pop.
+                Pair newNode = stack.remove();
                 
-                tlist.put(index, a);
+                tmap.put(newNode.level, newNode.node.data);
+                
+                //if left child is present.
+                if(newNode.node.left != null)
+                {
+                    stack.add(new Pair(newNode.node.left, newNode.level -1));
+                }
+                
+                //if right child is present.
+                if(newNode.node.right != null)
+                {
+                    stack.add(new Pair(newNode.node.right, newNode.level + 1));
+                }
             }
         }
         
         
+        
+        for(Map.Entry<Integer, Integer> t: tmap.entrySet())
+        {
+            bottomViewArr.add(t.getValue());
+        }
+        
+        return bottomViewArr;
     }
 }
