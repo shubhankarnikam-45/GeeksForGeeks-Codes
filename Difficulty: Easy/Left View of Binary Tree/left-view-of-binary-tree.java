@@ -126,77 +126,26 @@ class Tree
     ArrayList<Integer> leftView(Node root)
     {
       
-      //creatign array to store the anwer.
-      ArrayList<Integer> ans = new ArrayList<>();
-      
-      //edge case
-      if(root == null) return ans;
-      
-      
-      //creating queue.
+      //queue.
       Queue<Node> queue = new ArrayDeque<>();
-      
-      //add root.
       queue.add(root);
       
-      //run loop till the queue is empty.
+      ArrayList<Integer> ans = new ArrayList<>();
       while(queue.size() > 0)
       {
-          //size.
           int size = queue.size();
           
-          
-          
-          
-          for(int i=0; i<size; i++)
+          for(int i=1; i<=size; i++)
           {
-              //pop.
-          Node popElement = queue.remove();
-          
-              //left view.
-              if(i == 0)
-              {
-                  ans.add(popElement.data);
-              }
+              Node n = queue.remove();
+              if(i == 1) ans.add(n.data);
               
-              //left child.
-              if(popElement.left != null)
-              {
-                  queue.add(popElement.left);
-              }
-              
-              //right child.
-              if(popElement.right != null)
-              {
-                  queue.add(popElement.right);
-              }
+              if(n.left != null) queue.add(n.left);
+              if(n.right != null) queue.add(n.right);
           }
-          
-          
-          
       }
       
-      
-      //return answer.
-          return ans;
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+      return ans;
       
     }
 }
