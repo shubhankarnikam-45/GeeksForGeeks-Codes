@@ -54,21 +54,20 @@ class DriverClass
 
 //User function Template for Java
 
-
 class Pair implements Comparable<Pair>
 {
-    int weight;
     int node;
+    int wt;
     
-    Pair(int weight, int node)
+    Pair(int wt, int node)
     {
-        this.weight = weight;
         this.node = node;
+        this.wt = wt;
     }
     
     public int compareTo(Pair p)
     {
-        return p.weight < this.weight ? 1 : -1;
+        return this.wt > p.wt ? 1 : -1;
     }
 }
 class Solution
@@ -78,45 +77,41 @@ class Solution
     static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int S)
     {
         
-        //created the dist array.
+        //created the distance array.
         int dist[] = new int[V];
+        
         Arrays.fill(dist, (int)1e9);
+        
+        dist[S] = 0;
         
         PriorityQueue<Pair> pq = new PriorityQueue<>();
         
         pq.add(new Pair(0, S));
-        dist[S] = 0;
         
         while(pq.size() > 0)
         {
-            //pop.
+            //pop element.
             Pair p = pq.remove();
             
-            int wt = p.weight;
             int node = p.node;
+            int wt = p.wt;
             
-            //check.
-            
-            
+            //going to neighbour.
             for(ArrayList<Integer> al : adj.get(node))
             {
-                //node and weight in arraylist.
                 int nextNode = al.get(0);
                 int nextWt = al.get(1);
                 
                 if(wt + nextWt < dist[nextNode])
                 {
-                    //added to pq.
+                    //update.
                     dist[nextNode] = wt + nextWt;
                     pq.add(new Pair(wt + nextWt, nextNode));
                 }
             }
         }
         
-        
         return dist;
-        
-        
     }
 }
 
