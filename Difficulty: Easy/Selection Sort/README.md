@@ -1,4 +1,4 @@
-<h2><a href="https://www.geeksforgeeks.org/problems/selection-sort/1">Selection Sort</a></h2><h3>Difficulty Level : Difficulty: Easy</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an unsorted array of size N, use selection sort to sort arr[] in increasing order.</span></p>
+<h2><a href="https://www.geeksforgeeks.org/problems/selection-sort/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card">Selection Sort</a></h2><h3>Difficulty Level : Difficulty: Easy</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an unsorted array of size N, use selection sort to sort arr[] in increasing order.</span></p>
 
 <p><br>
 <strong><span style="font-size:18px">Example 1:</span></strong></p>
