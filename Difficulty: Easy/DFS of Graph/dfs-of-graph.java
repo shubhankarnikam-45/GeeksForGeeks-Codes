@@ -35,35 +35,30 @@ class GFG {
 
 
 class Solution {
-    public void dfs(int node, boolean[]visited, ArrayList<Integer> ans, ArrayList<ArrayList<Integer>> adj)
+    
+    public void dfs(ArrayList<ArrayList<Integer>> adj, boolean visited[], int node, ArrayList<Integer> ans)
     {
+        //mark as visited.
         visited[node] = true;
+        //add 
         ans.add(node);
         
-        for(int nbr : adj.get(node))
+        //going to nbr.
+        for(Integer nbr : adj.get(node))
         {
             if(visited[nbr] == false)
             {
-                dfs(nbr, visited, ans, adj);
+                dfs(adj, visited, nbr, ans);
             }
         }
     }
     // Function to return a list containing the DFS traversal of the graph.
     public ArrayList<Integer> dfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
         
-        //created the visited array.
         boolean visited[] = new boolean[V];
         
-        //creating arrylist.
         ArrayList<Integer> ans = new ArrayList<>();
-        
-        for(int i=0; i<V; i++)
-        {
-            if(visited[i] == false)
-            {
-                dfs(i, visited, ans, adj);
-            }
-        }
+        dfs(adj, visited, 0, ans);
         
         return ans;
     }
