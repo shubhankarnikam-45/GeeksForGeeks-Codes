@@ -19,32 +19,38 @@ class GFG {
 }
 // } Driver Code Ends
 
+
+// User function Template for Java
+
 class Solution {
-    int longestCommonSubstr(String str1, String str2) {
-        int n = str1.length(), m = str2.length();
-        int dp[][] = new int[1001][1001];
-        // dp[i][j] stores the longest common substring length
-        // in s1[0...i-1] and s2[0....j-1]
-
-        // if one of strings have length zero, longest common substring
-        // will also be of 0 length
-        for (int i = 0; i < n; ++i) dp[i][0] = 0;
-
-        for (int i = 0; i < m; ++i) dp[0][i] = 0;
-
-        int res = 0; // ans
-        for (int i = 1; i <= n; ++i) {
-            for (int j = 1; j <= m; ++j) {
-                // if current characters are same, we increase the length by 1
-                if (str1.charAt(i - 1) == str2.charAt(j - 1))
-                    dp[i][j] = 1 + dp[i - 1][j - 1];
-                // else, there's no common substring ending at i - 1 and j - 1
+    public int longestCommonSubstr(String s, String t) {
+         int m = s.length();
+        int n = t.length();
+        
+        int dp[][] =  new int[m + 1][n + 1];
+        
+        int maxi = Integer.MIN_VALUE;
+        
+        
+        for(int ind1 = 1; ind1 <= m; ind1++)
+        {
+            for(int ind2 = 1; ind2 <= n; ind2++)
+            {
+                if(s.charAt(ind1 - 1) == t.charAt(ind2 - 1))
+                {
+                    dp[ind1][ind2] = 1 + dp[ind1 - 1][ind2 - 1];
+                }
                 else
-                    dp[i][j] = 0;
-
-                res = Math.max(res, dp[i][j]); // storing the answer
+                {
+                    dp[ind1][ind2] = 0;
+                }
+                
+                maxi  = Math.max(maxi, dp[ind1][ind2]);
             }
+            
+           
         }
-        return res;
+        
+        return maxi;
     }
 }
