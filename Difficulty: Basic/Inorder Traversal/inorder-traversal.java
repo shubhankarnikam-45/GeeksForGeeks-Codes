@@ -90,7 +90,9 @@ class GfG {
                 System.out.print(res.get(i) + " ");
             System.out.print("\n");
             t--;
-        }
+        
+System.out.println("~");
+}
     }
 }
 
@@ -112,40 +114,22 @@ class Node {
 class Solution {
     // Function to return a list containing the inorder traversal of the tree.
     ArrayList<Integer> inOrder(Node root) {
-        
-        //arraylist to store the answer.
-        ArrayList<Integer> ans = new ArrayList<>();
-        
-        Node curr = root;
-        
-        while(curr != null)
-        {
-            if(curr.left == null)
-            {
-                ans.add(curr.data);
-                //going to right.
-                curr = curr.right;
-            }
-            else
-            {
-                //right to left subtree almost right.
-                Node leftSubtree  = curr.left;
-                
-                while(leftSubtree.right != null) 
-                {
-                    leftSubtree = leftSubtree.right;
-                }
-                
-                //making the thread.
-                leftSubtree.right = curr;
-                
-                //store this current in the temp 
-                Node temp = curr;
-                curr = curr.left;
-                temp.left = null;
+        ArrayList<Integer> res = new ArrayList<>();
+        if(root == null) return res;
+
+        Stack<Node> stack = new Stack<>();
+        Node node = root;
+        while(!stack.isEmpty() || node != null) {
+            if(node != null) {
+                stack.push(node);
+                node = node.left;
+            } else {
+                node = stack.pop();
+                res.add(node.data);
+                node = node.right;
             }
         }
-        
-        return ans;
+
+        return res;
     }
 }
