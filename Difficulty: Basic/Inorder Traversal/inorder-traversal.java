@@ -114,22 +114,29 @@ class Node {
 class Solution {
     // Function to return a list containing the inorder traversal of the tree.
     ArrayList<Integer> inOrder(Node root) {
-        ArrayList<Integer> res = new ArrayList<>();
-        if(root == null) return res;
-
+        
+        
         Stack<Node> stack = new Stack<>();
-        Node node = root;
-        while(!stack.isEmpty() || node != null) {
-            if(node != null) {
-                stack.push(node);
-                node = node.left;
-            } else {
-                node = stack.pop();
-                res.add(node.data);
-                node = node.right;
+        
+        Node cur = root;
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        while(!(stack.isEmpty()) || cur != null)
+        {
+            if(cur != null)
+            {
+                stack.push(cur);
+                cur = cur.left;
+            }
+            else
+            {
+                cur = stack.pop();
+                ans.add(cur.data);
+                cur = cur.right;
             }
         }
-
-        return res;
+        
+        return ans;
     }
 }
