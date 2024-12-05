@@ -30,7 +30,8 @@ class GFG {
 
 // } Driver Code Ends
 class Solution {
-    public void swap(int i, int j, int arr[])
+    //function to swap the two index.
+    public void swap(int arr[], int i, int j)
     {
         int temp = arr[i];
         arr[i] = arr[j];
@@ -39,27 +40,31 @@ class Solution {
     // Function to sort an array of 0s, 1s, and 2s
     public void sort012(int[] arr) {
         
-        Arrays.sort(arr);
-        int low = 0;
-        int mid = 0;
-        int high = arr.length - 1;
+        //here I am using the Dutch flag algorithm.
+        //size of array.
+        int n = arr.length;
         
-        while(mid < high)
+        //creaing the three pointer. low, mid and high.
+        int low = 0;
+        int high = n - 1;
+        int mid = 0;
+        
+        while(low <= high)
         {
-            if(arr[mid] == 0)
+            //if arr[low] is 0 then
+            if(arr[low] == 0)
             {
-                swap(low, mid, arr);
+                swap(arr, low, mid);
+                mid++;
                 low++;
-                mid++;
             }
-            else if(arr[mid]==1)
+            else if(arr[low] == 1)   //arr[low] is 1
             {
-                mid++;
+                low++;
             }
-            else
+            else //arr[low] is 2
             {
-                //arr[mid] == 2
-                swap(mid, high, arr);
+                swap(arr, low, high);
                 high--;
             }
         }
