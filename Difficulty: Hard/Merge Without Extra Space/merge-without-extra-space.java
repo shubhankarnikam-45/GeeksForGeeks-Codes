@@ -1,93 +1,91 @@
 //{ Driver Code Starts
-//Initial Template for Java
-
+import java.io.*;
 import java.util.*;
-import java.io.*;
-import java.io.*;
 
-public class Main
-{
-    public static void main (String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int t = Integer.parseInt(br.readLine().trim()); //Inputting the testcases
-		while(t-->0){
-		    String inputLine[] = br.readLine().trim().split(" ");
-		    int n = Integer.parseInt(inputLine[0]);
-		    int m = Integer.parseInt(inputLine[1]);
-		    long arr1[] = new long[n];
-		    long arr2[] = new long[m];
-		    inputLine = br.readLine().trim().split(" ");
-		    for(int i=0; i<n; i++){
-		        arr1[i] = Long.parseLong(inputLine[i]);
-		    }
-		    inputLine = br.readLine().trim().split(" ");
-		    for(int i=0; i<m; i++){
-		        arr2[i] = Long.parseLong(inputLine[i]);
-		    }
-		    Solution ob = new Solution();
-		    ob.merge(arr1, arr2, n, m);
-		    
-		    StringBuffer str = new StringBuffer();
-		    for(int i=0; i<n; i++){
-		        str.append(arr1[i]+" ");
-		    }
-		    for(int i=0; i<m; i++){
-		        str.append(arr2[i]+" ");
-		    }
-		    System.out.println(str);
-		}
-	}
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine().trim()); // Inputting the testcases
+
+        while (t-- > 0) {
+            String arr1[] = br.readLine().trim().split(" ");
+            String arr2[] = br.readLine().trim().split(" ");
+
+            int a[] = new int[arr1.length];
+            int b[] = new int[arr2.length];
+
+            for (int i = 0; i < a.length; i++) a[i] = Integer.parseInt(arr1[i]);
+            for (int i = 0; i < b.length; i++) b[i] = Integer.parseInt(arr2[i]);
+
+            Solution ob = new Solution();
+            ob.mergeArrays(a, b);
+
+            StringBuffer str = new StringBuffer();
+            for (int i = 0; i < a.length; i++) {
+                str.append(a[i] + " ");
+            }
+            System.out.println(str);
+            str = new StringBuffer();
+            for (int i = 0; i < b.length; i++) {
+                str.append(b[i] + " ");
+            }
+            System.out.println(str);
+        }
+    }
 }
 
 // } Driver Code Ends
 
 
-//User function Template for Java
+// User function Template for Java
 
-class Solution
-{
-    //Function to merge the arrays.
-    public static void merge(long nums1[], long nums2[], int m, int n) 
-    {
-         //brute force.
-        //created array of size n + m
-        long arr[] = new long[n+m];
-
-        int i=0;
-        int j=0;
-
-        //this for the arr.
-        int idx = 0;
-
-        //logic of sort. 2 sorted array.
-        while(i<m && j<n)
+class Solution {
+    // Function to merge the arrays.
+    public void mergeArrays(int a[], int b[]) {
+        
+        //size of given two array.
+        int n = a.length;
+        int m = b.length;
+        
+        //i solve this question using extra-space.
+        //creating that array that store all element.
+        int ans[] = new int[n + m];
+        
+        //creaing three pointers i ==> a, j ==> b, and k ==>ans
+        int i= 0;
+        int j = 0;
+        int k = 0;
+        
+        while(i < n && j < m)
+            if(a[i] < b[j]) ans[k++]  = a[i++];
+            else ans[k++] = b[j++];
+        
+        //if array a is pending to fill in array 'ans'
+        while(i < n) ans[k++] = a[i++];
+        
+        //if array b is pending to fill in array 'ans[]'
+        while(j < m) ans[k++] = b[j++];
+        
+        //pointer for the 'a[]' array.
+        int pa = 0;
+        //pointer for the 'b[]' array.
+        int pb = 0;
+        //pointer for the 'ans[]' array.
+        int pans = 0;
+        
+        //fill the array a
+        while(pa < n)
         {
-            if(nums1[i] < nums2[j])
-            {
-                arr[idx++] = nums1[i++];
-            }
-            else
-            {
-                arr[idx] = nums2[j];
-                j++;
-                idx++;
-            }
+            a[pa++] = ans[pans++];
         }
-
-        while(i < m) arr[idx++] = nums1[i++]; 
-        while(j < n) arr[idx++] = nums2[j++];
-
-
-        for(int k=0; k<n+m; k++)
+        
+        //fill the array b
+        while(pb < m)
         {
-            if(k<m)
-            {
-                nums1[k] = arr[k];
-            }
-            else
-            {
-                nums2[k-m] = arr[k];
-            }
+            b[pb++] = ans[pans++];
         }
+        
+        
+        
     }
 }
