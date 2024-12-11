@@ -40,6 +40,37 @@ public class Main {
 // User function Template for Java
 
 class Solution {
+    
+    //shifting array element.
+    public void shiftingArrElement(int arr[], int idx)
+    {
+        for(int i = arr.length -1 ; i>idx; i--)
+        {
+            arr[i] = arr[i - 1];
+        }
+    }
+    //code for upperBound.
+    public int findIdx(int a[], int t)
+    {
+        int low = 0;
+        int high = a.length -1;
+        
+        while(low <= high)
+        {
+            int mid = (low + (high-low)/2);
+            
+            if(a[mid] > t)
+            {
+                high = mid - 1;
+            }
+            else
+            {
+                low = mid + 1;
+            }
+        }
+        
+        return low;
+    }
     // Function to merge the arrays.
     public void mergeArrays(int a[], int b[]) {
         
@@ -47,44 +78,23 @@ class Solution {
         int n = a.length;
         int m = b.length;
         
-        //i solve this question using extra-space.
-        //creating that array that store all element.
-        int ans[] = new int[n + m];
-        
-        //creaing three pointers i ==> a, j ==> b, and k ==>ans
-        int i= 0;
-        int j = 0;
-        int k = 0;
-        
-        while(i < n && j < m)
-            if(a[i] < b[j]) ans[k++]  = a[i++];
-            else ans[k++] = b[j++];
-        
-        //if array a is pending to fill in array 'ans'
-        while(i < n) ans[k++] = a[i++];
-        
-        //if array b is pending to fill in array 'ans[]'
-        while(j < m) ans[k++] = b[j++];
-        
-        //pointer for the 'a[]' array.
-        int pa = 0;
-        //pointer for the 'b[]' array.
-        int pb = 0;
-        //pointer for the 'ans[]' array.
-        int pans = 0;
-        
-        //fill the array a
-        while(pa < n)
+        //traverse reverse order in array 'b[]'
+        for(int i= m - 1; i>=0; i--)
         {
-            a[pa++] = ans[pans++];
+            //finding index in array 'a'
+            int reqIndex = findIdx(a, b[i]);
+            
+            if(reqIndex != n)
+            {
+                //element insert at index 'j'
+                int insertAtJ = a[n - 1];
+                
+                //shifting element in array.
+                shiftingArrElement(a, reqIndex);
+                a[reqIndex] = b[i];
+                b[i] = insertAtJ;
+            }
         }
-        
-        //fill the array b
-        while(pb < m)
-        {
-            b[pb++] = ans[pans++];
-        }
-        
         
         
     }
