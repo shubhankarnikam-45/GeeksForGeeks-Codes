@@ -1,33 +1,33 @@
 //{ Driver Code Starts
-//Initial Template for Java
+// Initial Template for Java
 
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 
 // } Driver Code Ends
-//User function Template for Java
+// User function Template for Java
 
-class Solution
-{
+class Solution {
     
-    public static void swap(int arr[], int i, int j)
+    //logic of swap.
+    public static void swap(int i, int j, int arr[])
     {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
-    //Function to sort the array using bubble sort algorithm.
-	public static void bubbleSort(int arr[], int n)
-    {
-        for(int i=0; i<n; i++)
+    // Function to sort the array using bubble sort algorithm.
+    public static void bubbleSort(int arr[]) {
+        
+        //size of array.
+        int n = arr.length;
+        
+        for(int itr = 1; itr <= n -1; itr++)
         {
-            for(int j=0; j<n-i-1; j++)
+            for(int i = 0; i< n - itr; i++)
             {
-                if(arr[j] > arr[j+1])
-                {
-                    swap(arr, j, j+1);
-                }
+                if(arr[i] > arr[i + 1]) swap(i, i + 1, arr);
             }
         }
     }
@@ -35,47 +35,32 @@ class Solution
 
 //{ Driver Code Starts.
 
-class Sorting
-{
-    //method to print the Elements of the array
-    static void printArray(int arr[])
-    {
+class Sorting {
+    // method to print the Elements of the array
+    static void printArray(int arr[]) {
         int n = arr.length;
-        for (int i=0; i<n; ++i)
-            System.out.print(arr[i] + " ");
+        for (int i = 0; i < n; ++i) System.out.print(arr[i] + " ");
         System.out.println();
     }
-	public static void main(String args[])
-	{
-	    //taking input using Scanner class
-		Scanner sc = new Scanner(System.in);
-		
-		//taking total testcases
-		int t = sc.nextInt();
-		while(t>0)
-		{
-		    //taking total elements
-			int n = sc.nextInt();
-			
-			//creating a new array of length n
-			int arr[] = new int[n];
-			
-			//inserting elements to the array
-			for(int i=0;i<n;i++)
-			{
-				arr[i] = sc.nextInt(); 
-			}
-			
-			
-			//calling bubbleSort() method
-			new Solution().bubbleSort(arr,n);
-			
-			//calling printArray() method
-			printArray(arr);
-			
-		t--;	
-		}
-	}
 
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine().trim()); // Inputting the testcases
+        while (t > 0) {
+            String inputLine[] = br.readLine().trim().split(" ");
+            int n = inputLine.length;
+            int arr[] = new int[n];
+            for (int i = 0; i < n; i++) {
+                arr[i] = Integer.parseInt(inputLine[i]);
+            }
+            // calling bubbleSort() method
+            new Solution().bubbleSort(arr);
+
+            // calling printArray() method
+            printArray(arr);
+
+            t--;
+        }
+    }
 }
 // } Driver Code Ends
